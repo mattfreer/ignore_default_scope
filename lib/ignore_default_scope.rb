@@ -1,0 +1,2 @@
+module IgnoreDefaultScope
+end
