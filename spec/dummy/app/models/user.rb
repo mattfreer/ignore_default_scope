@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
    attr_accessible :user_name, :deleted_at
    default_scope where(:deleted_at => nil)
 
+   has_many :projects, :foreign_key => "creator_id"
+
    #archive
    # ------------------------------------------
    def archived=(b)
