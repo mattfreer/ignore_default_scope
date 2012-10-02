@@ -13,3 +13,4 @@ doc/app
 Capfile
 .sass-cache/
 spec/dummy/config/database.yml
+Gemfile.lock
