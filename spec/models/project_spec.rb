@@ -17,14 +17,26 @@ describe Project do
     subject.creator.present?.should be_true
   end
 
-  describe "creator is archived" do
+  describe "when creator is archived" do
     before do
       user.archived = true
       user.save
     end
 
-    it "should have a creator" do
-      subject.creator.present?.should be_true
+    context "#creator" do
+      it{ subject.creator.present?.should be_false }
+    end
+
+    context "with ignore_default_scope" do
+      before do
+        class Project
+          ignore_default_scope :creator
+        end
+      end
+
+      context "#creator" do
+        it{ subject.creator.present?.should be_true }
+      end
     end
   end
 end
