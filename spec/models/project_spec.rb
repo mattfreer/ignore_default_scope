@@ -1,42 +1,37 @@
 require 'spec_helper'
 
 describe Project do
-  def create_project(creator)
-    creator.projects.build :name => "Foobar"
-  end
-
   let(:user) { User.create :user_name => "matt freer"}
-  subject { create_project(user) }
 
-  it "name" do
-    subject.name.should == "Foobar"
+  before(:each) do
+    user.projects.create :name => "Foobar"
   end
+  it { user.projects.count.should eq(1) }
+  subject { user.projects.first }
 
-  it "should have a creator" do
-    subject.should respond_to(:creator)
-    subject.creator.present?.should be_true
-  end
+  it { subject.name.should == "Foobar" }
 
-  describe "when creator is archived" do
-    before do
-      user.archived = true
-      user.save
-    end
+  context "#creator" do
+    it { subject.creator.present?.should be_true }
+    it { subject.creator.should eq(user) }
 
-    context "#creator" do
-      it{ subject.creator.present?.should be_false }
-    end
-
-    context "with ignore_default_scope" do
+    context "when creator is archived" do
       before do
-        class Project
-          ignore_default_scope :creator
-        end
+        user.archived = true
+        user.save
       end
+      it { user.archived.should == true }
+      it { subject.creator.present?.should be_false }
 
-      context "#creator" do
+      context "with ignore_default_scope" do
+        before do
+          class Project
+            ignore_default_scope :creator
+          end
+        end
         it{ subject.creator.present?.should be_true }
       end
     end
   end
+
 end

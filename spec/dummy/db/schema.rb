@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220031418) do
+ActiveRecord::Schema.define(:version => 20121222213327) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "comments", ["author_type", "author_id"], :name => "index_comments_on_author_type_and_author_id"
 
   create_table "customers", :force => true do |t|
     t.string   "customer_no"
@@ -19,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20121220031418) do
     t.string   "fullname"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "projects", :force => true do |t|
