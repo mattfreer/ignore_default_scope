@@ -10,7 +10,6 @@ module IgnoreDefaultScope
       send(:after_initialize, :on_after_init)
     end
 
-    #ActiveSupport::Concern automatically mixes-in ClassMethods
     module ClassMethods
       attr_reader :association_name
 
@@ -20,17 +19,14 @@ module IgnoreDefaultScope
     end
 
     def on_after_init
-      create_relation
-      apply_aliasing
       self.class.after_save :on_after_save
+      setup if ignoring?
     end
 
     def on_after_save
-      #If the association has changed we need to update the aliasing in case
-      #the association type has changed (e.g. polymorhic association)
-      create_relation
-      if relation.name.present? && relation.id_changed?
-        apply_aliasing
+      if relation_changed?
+        #Update the aliasing in case the association type has changed (e.g. polymorhic association)
+        setup
       end
     end
 
@@ -48,6 +44,16 @@ module IgnoreDefaultScope
     end
 
     private
+
+    def ignoring?
+      self.class.association_name.present?
+    end
+
+    def setup
+      create_relation
+      apply_aliasing
+    end
+
     def create_relation
       @relation = IgnoreDefaultScope::Relation.new(
         :host => self,
@@ -57,6 +63,10 @@ module IgnoreDefaultScope
 
     def unscoped_alias_name
       (relation.name.to_s + "_with_unscoped").to_sym
+    end
+
+    def relation_changed?
+      relation.present? && relation.id_changed?
     end
   end
 end
