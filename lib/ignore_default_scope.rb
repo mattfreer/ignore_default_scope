@@ -1,4 +1,4 @@
-require "ignore_default_scope/acts_as_oblivious.rb"
+require "ignore_default_scope/base.rb"
 
 module IgnoreDefaultScope
 end
