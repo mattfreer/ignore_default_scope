@@ -7,8 +7,8 @@ require "ignore_default_scope/version"
 Gem::Specification.new do |s|
   s.name        = "ignore_default_scope"
   s.version     = IgnoreDefaultScope::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
+  s.authors     = ["Matt Freer"]
+  s.email       = ["matt.freer@gmail.com"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of IgnoreDefaultScope."
   s.description = "TODO: Description of IgnoreDefaultScope."
@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "timecop"
 end

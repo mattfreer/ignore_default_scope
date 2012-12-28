@@ -1,10 +1,12 @@
 .bundle
 *.rvmrc
+*.rspec
 db/*.sqlite3*
 log/*.log
 *.log
 tmp/**/*
 tmp/*
+spec/dummy/tmp
 doc/api
 doc/app
 *.swp
@@ -13,3 +15,4 @@ doc/app
 Capfile
 .sass-cache/
 spec/dummy/config/database.yml
+Gemfile.lock
