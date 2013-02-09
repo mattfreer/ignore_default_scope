@@ -18,6 +18,8 @@ module IgnoreDefaultScope
 
     private
     def host_attribute(message_suffix)
+      #Neccessary to read the attribute before accessing the method object
+      #to protect against undefined method errors :(
       host[attribute_name(message_suffix)]
       host.method(attribute_name(message_suffix))
     end
