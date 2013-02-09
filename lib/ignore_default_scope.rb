@@ -1,4 +1,5 @@
-require "ignore_default_scope/base.rb"
+require "ignore_default_scope/base"
+require "active_record/base"
 
 module IgnoreDefaultScope
 end
