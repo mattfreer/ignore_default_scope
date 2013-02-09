@@ -70,4 +70,3 @@ module IgnoreDefaultScope
     end
   end
 end
-ActiveRecord::Base.send :include, IgnoreDefaultScope::Base
