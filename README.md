@@ -26,11 +26,11 @@ class User < ActiveRecord::Base
 end
 ```
 
-In the above mock scenario *Projects* are created by *Users*, who can be archived (soft-deleted). In general archived *Users* are not relevant, hence a *default_scope* is applied to *Users* which filters out archived records. However *Projects* and their *creators* need to be readable regardless of whether the *creator* is archived. The solution being to instruct *Project* to *ignore_default_scope* of its *creator*.
+In the above mock scenario *Projects* are created by *Users*, who can be archived (soft-deleted). In general, archived *Users* are not relevant to our application, hence a *default_scope* is applied to *Users*, which filters out archived records. However *Projects* and their *creators* need to be readable, regardless of whether the *creator* is archived. The solution being to instruct *Projects* to *ignore_default_scope* of *creators*.
 
 ## Supports polymorphic associations
 
-Ignoring the *default_scope* of Polymorphic *belongs_to* relations works to, as demonstrated in following example:
+Ignoring the *default_scope* of Polymorphic *belongs_to* relations works too, as demonstrated in following example:
 
 ``` ruby
 
@@ -50,7 +50,7 @@ class Customer < ActiveRecord::Base
 end
 ```
 
-In the above mock scenario *Comments* can be created by *Users* or *Customers*. Both *Users* and *Customers* can be archived. *Comments* and their *authors* need to be readable regardless of whether the *author* is archived.
+In the above mock scenario *Comments* can be created by *Users* or *Customers*. Both *Users* and *Customers* can be archived. *Comments* and their *authors* need to be readable, regardless of whether the *author* is archived.
 
 # Support
 
