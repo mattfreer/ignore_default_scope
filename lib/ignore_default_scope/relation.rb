@@ -18,6 +18,7 @@ module IgnoreDefaultScope
 
     private
     def host_attribute(message_suffix)
+      host[attribute_name(message_suffix)]
       host.method(attribute_name(message_suffix))
     end
 
