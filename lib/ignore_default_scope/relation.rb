@@ -38,7 +38,7 @@ module IgnoreDefaultScope
     end
 
     def association_klass
-      host.class.reflect_on_association(name).class_name.constantize
+      reflection.class_name.constantize
     end
   end
 end
