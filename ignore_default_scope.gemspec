@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.authors     = ["Matt Freer"]
   s.email       = ["matt.freer@gmail.com"]
   s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of IgnoreDefaultScope."
+  s.summary     = "A Ruby on Rails plug-in that provides a mechanism for ActiveRecord Models to ignore the default_scope of a belongs_to association."
   s.description = "TODO: Description of IgnoreDefaultScope."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 3.1.1"
 
