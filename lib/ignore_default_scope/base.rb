@@ -20,17 +20,17 @@ module IgnoreDefaultScope
 
     def on_after_init
       self.class.after_save :on_after_save
-      setup if ignoring?
+      setup_ignore if ignoring?
     end
 
     def on_after_save
       if relation_changed?
         #Update the aliasing in case the association type has changed (e.g. polymorhic association)
-        setup
+        setup_ignore
       end
     end
 
-    def apply_aliasing
+    def apply_ignore_aliasing
       if relation.name.present? && relation.id.present?
         singleton = class << self; self end
 
@@ -49,12 +49,12 @@ module IgnoreDefaultScope
       self.class.association_name.present?
     end
 
-    def setup
-      create_relation
-      apply_aliasing
+    def setup_ignore
+      create_ignore_relation
+      apply_ignore_aliasing
     end
 
-    def create_relation
+    def create_ignore_relation
       @relation = IgnoreDefaultScope::Relation.new(
         :host => self,
         :name => self.class.association_name
