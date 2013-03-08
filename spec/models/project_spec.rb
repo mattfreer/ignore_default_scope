@@ -1,37 +1,41 @@
 require 'spec_helper'
 
 describe Project do
-  let(:user) { User.create :user_name => "matt freer"}
+  subject { project_class.create(:name => "Foobar") }
+  let(:project_class) { described_class }
+  let(:user) { User.create(:user_name => "matt freer") }
+  let(:creator) { subject.reload.creator }
 
   before(:each) do
-    user.projects.create :name => "Foobar"
+    subject.creator_id = user.id
+    subject.save
   end
-  it { user.projects.count.should eq(1) }
-  subject { user.projects.first }
 
-  it { subject.name.should == "Foobar" }
+  context "projects" do
+    it { user.projects.all.size.should eq(1) }
+    its("name") { should == "Foobar" }
 
-  context "#creator" do
-    it { subject.creator.present?.should be_true }
-    it { subject.creator.should eq(user) }
+    context "#creator" do
+      its("creator.present?") { should be_true }
+      its("creator") { should eq(user) }
 
-    context "when creator is archived" do
-      before do
-        user.archived = true
-        user.save
-      end
-      it { user.archived.should == true }
-      it { subject.creator.present?.should be_false }
-
-      context "with ignore_default_scope" do
+      context "when creator is archived" do
         before do
-          class Project
-            ignore_default_scope :creator
-          end
+          user.archived = true
+          user.save
         end
-        it{ subject.creator.present?.should be_true }
+        it { user.archived.should be_true }
+        it { creator.present?.should be_false }
+
+        context "with ignore_default_scope" do
+          let(:project_class) {
+            Project.ignore_default_scope :creator
+            Project
+          }
+
+          its("creator.present?") { should be_true }
+        end
       end
     end
   end
-
 end
