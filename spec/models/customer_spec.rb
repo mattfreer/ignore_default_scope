@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Customer do
-  subject { Customer.new :fullname => 'Ian Smith', :email => "ian@smith.com"}
+  subject { described_class.new(:fullname => 'Ian Smith', :email => "ian@smith.com") }
 
   context "#save" do
     before :each do
@@ -9,7 +9,7 @@ describe Customer do
     end
 
     context "#cutomer_no" do
-      it { subject.customer_no.should =~ /\A(cust_)\d/ }
+      its("customer_no") { should =~ /\A(cust_)\d/ }
     end
   end
 end
